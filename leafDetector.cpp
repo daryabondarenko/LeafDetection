@@ -26,7 +26,7 @@ int main(int argc, char** argv){
 	double maxarea = -1, area;
 	int contourCount;
 
-	cv::namedWindow(windowName);
+	cv::namedWindow(windowName, cv::WINDOW_NORMAL);
 
 	char search_path[200], file[300];
 	sprintf(search_path, "%s/*.*", argv[1]);
@@ -62,8 +62,9 @@ int main(int argc, char** argv){
 
 				if (area > 0){
 					cv::Rect bounding_rect = cv::boundingRect(contours[imax]);
-					cv::rectangle(res, bounding_rect, cv::Scalar(0, 255, 0));
+					cv::rectangle(res, bounding_rect, cv::Scalar(0, 255, 0), 4);
 					cv::imshow(windowName, res);
+					cv::resizeWindow(windowName, 400, 300);
 					char c = cvWaitKey(0);
 
 					if (c == 'n'){
@@ -77,6 +78,7 @@ int main(int argc, char** argv){
 				//cv::drawContours(res, contours, imax, cv::Scalar(0, 0, 255));
 				else{
 					cv::imshow(windowName, res);
+					cv::resizeWindow(windowName, 400, 300);
 					cv::waitKey(0);
 					outStreamBad << file << std::endl;
 				}
